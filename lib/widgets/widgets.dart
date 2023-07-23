@@ -16,3 +16,12 @@ const textInputDecoration = InputDecoration(
     borderSide: BorderSide(color: Colors.blue, width: 2),
   ),
 );
+
+void nextScreen(BuildContext context, Widget page) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+}
+
+void replaceScreen(BuildContext context, Widget page) {
+  Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => page));
+}
