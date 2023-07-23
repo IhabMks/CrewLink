@@ -1,19 +1,21 @@
-import 'package:chatapp/pages/signup_page.dart';
+import 'package:chatapp/pages/login_page.dart';
 import 'package:chatapp/widgets/widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
+  String fullName = "";
   String email = "";
   String password = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,10 +35,25 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10),
                 const Text(
-                  "Connect with CrewLink - Chat and Conquer!",
+                  "Join the CrewLink - Chat, Connect, Conquer!",
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
                 ),
-                Image.asset("assets/images/login.png"),
+                Image.asset("assets/images/signup.png"),
+                TextFormField(
+                  decoration: textInputDecoration.copyWith(
+                      labelText: "Full Name",
+                      prefixIcon: Icon(Icons.person,
+                          color: Theme.of(context).primaryColor)),
+                  onChanged: (value) => fullName = value,
+                  // checkValidation
+                  validator: (value) {
+                    // Regex pattern for email validation
+                    return value!.length > 4
+                        ? null
+                        : "Full name should be at least 5 characters long";
+                  },
+                ),
+                const SizedBox(height: 10),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(
                       labelText: "Email",
@@ -53,9 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                         : "Please enter a valid email address";
                   },
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 TextFormField(
                   obscureText: true,
                   decoration: textInputDecoration.copyWith(
@@ -80,28 +95,28 @@ class _LoginPageState extends State<LoginPage> {
                             backgroundColor: Theme.of(context).primaryColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5))),
-                        onPressed: () => login(),
+                        onPressed: () => register(),
                         child: const Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text("Login"),
+                          child: Text("Sign up"),
                         ))),
                 const SizedBox(height: 10),
                 Text.rich(TextSpan(
-                    text: "Dont have an account? ",
+                    text: "Already have an account? ",
                     style: const TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.w400,
                         fontSize: 14),
                     children: <InlineSpan>[
                       TextSpan(
-                          text: "Sign up!",
+                          text: "Login!",
                           style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
                               decoration: TextDecoration.underline),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              nextScreen(context, const SignUpPage());
+                              replaceScreen(context, const LoginPage());
                             })
                     ]))
               ]),
@@ -110,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
     ));
   }
 
-  login() {
+  void register() {
     if (_formKey.currentState!.validate()) {}
   }
 }
