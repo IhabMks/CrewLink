@@ -21,10 +21,30 @@ class HelperFunctions {
     return await sf.setString(USEREMAILKEY, email);
   }
 
-  // get the data from the Shared preferences
+  // get login status from the Shared preferences
   static Future<bool?> getUserLoggedInStatus() async {
     SharedPreferences sf = await SharedPreferences.getInstance();
     return sf.getBool(USERLOGGEDINKEY);
+  }
+
+  // get the data from the Shared preferences
+  static Future<String?> getUserFullName() async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.getString(USERFULLNAMEKEY);
+  }
+
+  // get the data from the Shared preferences
+  static Future<String?> getUserEmail() async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.getString(USEREMAILKEY);
+  }
+
+  static Future<Map<String, String>> getUserDetails() async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    String fullName = sf.getString(USERFULLNAMEKEY) ?? "";
+    String email = sf.getString(USEREMAILKEY) ?? "";
+
+    return {"fullname": fullName, "email": email};
   }
 
   static Future<bool> clearUserLoggedInStatus() async {

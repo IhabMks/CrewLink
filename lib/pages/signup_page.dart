@@ -1,6 +1,5 @@
+import 'package:chatapp/app_route.dart';
 import 'package:chatapp/helper/helper_functions.dart';
-import 'package:chatapp/pages/home_page.dart';
-import 'package:chatapp/pages/login_page.dart';
 import 'package:chatapp/services/auth_service.dart';
 import 'package:chatapp/widgets/widgets.dart';
 import 'package:flutter/gestures.dart';
@@ -129,8 +128,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                         decoration: TextDecoration.underline),
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        replaceScreen(
-                                            context, const LoginPage());
+                                        AppRouteManager.replaceNamedScreen(
+                                            context,
+                                            AppRouteManager.loginRoute);
                                       })
                               ]))
                         ]),
@@ -153,7 +153,8 @@ class _SignUpPageState extends State<SignUpPage> {
           HelperFunctions.saveUserEmail(email);
           HelperFunctions.saveUserFullName(fullName);
           showSnackBar(context, Colors.green, "Subscription saved!");
-          replaceScreen(context, const HomePage());
+          AppRouteManager.replaceNamedScreen(
+              context, AppRouteManager.homeRoute);
         } else {
           showSnackBar(context, Colors.red, value.toString());
         }
