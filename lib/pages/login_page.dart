@@ -1,6 +1,5 @@
+import 'package:chatapp/app_route.dart';
 import 'package:chatapp/helper/helper_functions.dart';
-import 'package:chatapp/pages/home_page.dart';
-import 'package:chatapp/pages/signup_page.dart';
 import 'package:chatapp/services/auth_service.dart';
 import 'package:chatapp/services/database_service.dart';
 import 'package:chatapp/widgets/widgets.dart';
@@ -117,7 +116,8 @@ class _LoginPageState extends State<LoginPage> {
                                         decoration: TextDecoration.underline),
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        nextScreen(context, const SignUpPage());
+                                        AppRouteManager.nextNamedScreen(context,
+                                            AppRouteManager.signUpRoute);
                                       })
                               ]))
                         ]),
@@ -142,10 +142,11 @@ class _LoginPageState extends State<LoginPage> {
           // saving the shared preferences state
           HelperFunctions.saveUserLoggedInStatus(true);
           HelperFunctions.saveUserEmail(email);
-          // [0] because the search by email is unique per user => one match at most
+          // [0] => search by email is unique per user => one match at most
           HelperFunctions.saveUserFullName(snapshot.docs[0]['fullName']);
           showSnackBar(context, Colors.green, "Welcome back!");
-          replaceScreen(context, const HomePage());
+          AppRouteManager.replaceNamedScreen(
+              context, AppRouteManager.homeRoute);
         } else {
           showSnackBar(context, Colors.red, value.toString());
         }

@@ -17,15 +17,6 @@ const textInputDecoration = InputDecoration(
   ),
 );
 
-void nextScreen(BuildContext context, Widget page) {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => page));
-}
-
-void replaceScreen(BuildContext context, Widget page) {
-  Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => page));
-}
-
 void showSnackBar(BuildContext context, Color color, message) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(message, style: const TextStyle(fontSize: 14)),
